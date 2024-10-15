@@ -1,5 +1,8 @@
 package com.jinwang.auth.infra.basic.entity;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 import java.io.Serializable;
@@ -41,7 +44,7 @@ public class AuthUser implements Serializable {
 
     private String introduce;
 
-    private Map<String, String> extJson;
+    private Map extJson;
 
 
     public Integer getId() {
@@ -160,8 +163,13 @@ public class AuthUser implements Serializable {
         return extJson;
     }
 
-    public void setExtJson(Map extJson) {
-        this.extJson = extJson;
+    public void setExtJson(String extJson) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            this.extJson = objectMapper.readValue(extJson, Map.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
