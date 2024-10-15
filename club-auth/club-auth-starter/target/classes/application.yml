@@ -1,0 +1,9 @@
+server:
+  port: 3011
+
+spring:
+  datasource:
+    username: root
+    password: GJW@xjtu22
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47:92:27:55:3306/club?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai
