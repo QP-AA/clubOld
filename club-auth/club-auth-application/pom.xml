@@ -11,5 +11,13 @@
 
     <artifactId>club-auth-application</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot-starter</artifactId>
+            <version>1.37.0</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
