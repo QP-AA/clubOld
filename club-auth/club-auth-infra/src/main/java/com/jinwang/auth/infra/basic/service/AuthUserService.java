@@ -2,6 +2,8 @@ package com.jinwang.auth.infra.basic.service;
 
 import com.jinwang.auth.infra.basic.entity.AuthUser;
 
+import java.util.List;
+
 /**
  * (AuthUser)表服务接口
  *
@@ -24,7 +26,7 @@ public interface AuthUserService {
      * @param authUser 实例对象
      * @return 实例对象
      */
-    AuthUser insert(AuthUser authUser);
+    Integer insert(AuthUser authUser);
 
     /**
      * 修改数据
@@ -41,5 +43,10 @@ public interface AuthUserService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
+
+    /**
+     * 根据条件查询数量
+     */
+    List<AuthUser> queryByCondition(AuthUser authUser);
 
 }

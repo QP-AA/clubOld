@@ -44,7 +44,7 @@ public class AuthUser implements Serializable {
 
     private String introduce;
 
-    private Map extJson;
+    private String extJson;
 
 
     public Integer getId() {
@@ -159,17 +159,12 @@ public class AuthUser implements Serializable {
         this.introduce = introduce;
     }
 
-    public Map getExtJson() {
+    public String getExtJson() {
         return extJson;
     }
 
     public void setExtJson(String extJson) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            this.extJson = objectMapper.readValue(extJson, Map.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.extJson = extJson;
     }
 
 }

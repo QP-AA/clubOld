@@ -72,5 +72,13 @@ public interface AuthUserDao {
      */
     int deleteById(Integer id);
 
+    /**
+     * 查询指定行数据
+     *
+     * @param authUser 查询条件
+     * @return 对象列表
+     */
+    List<AuthUser> queryAllByLimit(AuthUser authUser);
+
 }
 
