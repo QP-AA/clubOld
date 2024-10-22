@@ -47,9 +47,8 @@ public class AuthUserServiceImpl implements AuthUserService {
      * @return 实例对象
      */
     @Override
-    public AuthUser update(AuthUser authUser) {
-        this.authUserDao.update(authUser);
-        return this.queryById(authUser.getId());
+    public Integer update(AuthUser authUser) {
+        return this.authUserDao.update(authUser);
     }
 
     /**
@@ -59,7 +58,7 @@ public class AuthUserServiceImpl implements AuthUserService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
         return this.authUserDao.deleteById(id) > 0;
     }
 

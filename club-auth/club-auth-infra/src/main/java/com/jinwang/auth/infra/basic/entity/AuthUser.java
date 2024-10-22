@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class AuthUser implements Serializable {
     private static final long serialVersionUID = -91133373236661722L;
 
-    private Integer id;
+    private Long id;
 
     private String userName;
 
@@ -47,11 +47,11 @@ public class AuthUser implements Serializable {
     private String extJson;
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

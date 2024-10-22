@@ -31,4 +31,17 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         Integer cnt = authUserService.insert(authUser);
         return cnt > 0;
     }
+
+    @Override
+    public Boolean update(AuthUserBO authUserBO) {
+        AuthUser authUser = AuthUserBOConverter.INSTANCE.convertBOToEntity(authUserBO);
+        Integer cnt = authUserService.update(authUser);
+        log.info("开始修改用户信息，id： {}", authUser.getId());
+        return cnt > 0;
+    }
+
+    @Override
+    public Boolean delete(AuthUserBO authUserBO) {
+        return authUserService.deleteById(authUserBO.getId());
+    }
 }

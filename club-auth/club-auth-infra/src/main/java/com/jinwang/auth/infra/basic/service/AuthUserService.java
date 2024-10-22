@@ -34,7 +34,7 @@ public interface AuthUserService {
      * @param authUser 实例对象
      * @return 实例对象
      */
-    AuthUser update(AuthUser authUser);
+    Integer update(AuthUser authUser);
 
     /**
      * 通过主键删除数据
@@ -42,7 +42,7 @@ public interface AuthUserService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
 
     /**
      * 根据条件查询数量

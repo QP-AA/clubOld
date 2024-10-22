@@ -34,4 +34,38 @@ public class UserController {
             return Result.fail("用户注册失败");
         }
     }
+
+    /**
+     * 用户更新
+     *
+     * @param authUserDTO
+     * @return
+     */
+
+    @RequestMapping("update")
+    public Result<Boolean> update(@RequestBody AuthUserDTO authUserDTO) {
+        log.info("用户更新开始");
+        try {
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            return Result.ok(authUserDomainService.update(authUserBO));
+        } catch (Exception e) {
+            log.error("用户更新失败，用户名： {}， error：{}", authUserDTO.getUserName(), e.getMessage());
+            return Result.fail("用户更新失败");
+        }
+    }
+
+    /**
+     * 用户删除
+     */
+    @RequestMapping("delete")
+    public Result<Boolean> delete(@RequestBody AuthUserDTO authUserDTO) {
+        log.info("删除用户开始");
+        try {
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            return Result.ok(authUserDomainService.delete(authUserBO));
+        } catch (Exception e) {
+            log.error("删除用户失败，用户名： {}， error：{}", authUserDTO.getUserName(), e.getMessage());
+            return Result.fail("删除用户失败");
+        }
+    }
 }
