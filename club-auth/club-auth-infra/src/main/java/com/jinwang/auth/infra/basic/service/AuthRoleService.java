@@ -1,8 +1,6 @@
 package com.jinwang.auth.infra.basic.service;
 
 import com.jinwang.auth.infra.basic.entity.AuthRole;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 /**
  * (AuthRole)表服务接口
@@ -19,7 +17,7 @@ public interface AuthRoleService {
      * @return 实例对象
      */
     AuthRole queryById(Integer id);
-    AuthRole insert(AuthRole authRole);
+    Integer insert(AuthRole authRole);
 
     /**
      * 修改数据
@@ -27,7 +25,7 @@ public interface AuthRoleService {
      * @param authRole 实例对象
      * @return 实例对象
      */
-    AuthRole update(AuthRole authRole);
+    Integer update(AuthRole authRole);
 
     /**
      * 通过主键删除数据
@@ -35,6 +33,8 @@ public interface AuthRoleService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
+
+    public AuthRole queryByCondition(AuthRole authRole);
 
 }

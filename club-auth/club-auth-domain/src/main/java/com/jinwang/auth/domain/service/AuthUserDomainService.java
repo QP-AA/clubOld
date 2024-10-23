@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 用户领域service
  *
- * @author: ChickenWing
+ * @author: jinwang
  * @date: 2023/11/1
  */
 public interface AuthUserDomainService {

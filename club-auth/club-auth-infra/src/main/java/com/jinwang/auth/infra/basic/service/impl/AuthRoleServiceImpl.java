@@ -4,9 +4,6 @@ import com.jinwang.auth.infra.basic.entity.AuthRole;
 import com.jinwang.auth.infra.basic.mapper.AuthRoleDao;
 import com.jinwang.auth.infra.basic.service.AuthRoleService;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
 
@@ -39,9 +36,8 @@ public class AuthRoleServiceImpl implements AuthRoleService {
      * @return 实例对象
      */
     @Override
-    public AuthRole insert(AuthRole authRole) {
-        this.authRoleDao.insert(authRole);
-        return authRole;
+    public Integer insert(AuthRole authRole) {
+       return this.authRoleDao.insert(authRole);
     }
 
     /**
@@ -51,9 +47,8 @@ public class AuthRoleServiceImpl implements AuthRoleService {
      * @return 实例对象
      */
     @Override
-    public AuthRole update(AuthRole authRole) {
-        this.authRoleDao.update(authRole);
-        return this.queryById(authRole.getId());
+    public Integer update(AuthRole authRole) {
+        return this.authRoleDao.update(authRole);
     }
 
     /**
@@ -63,7 +58,14 @@ public class AuthRoleServiceImpl implements AuthRoleService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
         return this.authRoleDao.deleteById(id) > 0;
     }
+
+    @Override
+    public AuthRole queryByCondition(AuthRole authRole) {
+        return this.authRoleDao.queryAllByLimit(authRole);
+    }
+
+
 }

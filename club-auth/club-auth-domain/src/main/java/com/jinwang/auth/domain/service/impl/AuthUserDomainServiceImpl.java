@@ -1,10 +1,15 @@
 package com.jinwang.auth.domain.service.impl;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
+import com.jinwang.auth.domain.constants.AuthConstant;
 import com.jinwang.auth.domain.convert.AuthUserBOConverter;
 import com.jinwang.auth.domain.entity.AuthUserBO;
 import com.jinwang.auth.domain.service.AuthUserDomainService;
+import com.jinwang.auth.infra.basic.entity.AuthRole;
 import com.jinwang.auth.infra.basic.entity.AuthUser;
+import com.jinwang.auth.infra.basic.entity.AuthUserRole;
+import com.jinwang.auth.infra.basic.service.AuthRoleService;
+import com.jinwang.auth.infra.basic.service.AuthUserRoleService;
 import com.jinwang.auth.infra.basic.service.AuthUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -19,6 +24,13 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
 
     @Resource
     private AuthUserService authUserService;
+
+    @Resource
+    private AuthRoleService authRoleService;
+
+    @Resource
+    AuthUserRoleService authUserRoleService;
+
     @Override
     public Boolean register(AuthUserBO authUserBO) {
         AuthUser exitAuthUser = new AuthUser();
@@ -31,6 +43,19 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         authUser.setPassword(SaSecureUtil.md5(authUser.getPassword()));
         log.info("开始注册到数据库");
         Integer cnt = authUserService.insert(authUser);
+
+        // 建立角色关联
+        AuthRole authRole = new AuthRole();
+        authRole.setRoleKey(AuthConstant.NORMAL_USER);
+        AuthRole resRole = authRoleService.queryByCondition(authRole);
+        Long roleId = resRole.getId();
+        Long userId = authUser.getId();
+        AuthUserRole authUserRole = new AuthUserRole();
+        authUserRole.setUserId(userId);
+        authUserRole.setRoleId(roleId);
+        log.info("开始建立用户角色关联");
+        authUserRoleService.insert(authUserRole);
+
         return cnt > 0;
     }
 
