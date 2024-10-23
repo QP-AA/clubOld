@@ -1,5 +1,6 @@
 package com.jinwang.auth.domain.service.impl;
 
+import cn.dev33.satoken.secure.SaSecureUtil;
 import com.jinwang.auth.domain.convert.AuthUserBOConverter;
 import com.jinwang.auth.domain.entity.AuthUserBO;
 import com.jinwang.auth.domain.service.AuthUserDomainService;
@@ -27,6 +28,7 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
             return true;
         }
         AuthUser authUser = AuthUserBOConverter.INSTANCE.convertBOToEntity(authUserBO);
+        authUser.setPassword(SaSecureUtil.md5(authUser.getPassword()));
         log.info("开始注册到数据库");
         Integer cnt = authUserService.insert(authUser);
         return cnt > 0;
