@@ -1,4 +1,4 @@
-package com.jinwang.club.gateway.Utils;
+package com.jinwang.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;

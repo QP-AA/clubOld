@@ -21,7 +21,7 @@ public class testController {
     }
 
 
-    // 测试登录，浏览器访问： http://localhost:3011/doLogin?username=zhang&password=123456
+    // 测试登录，浏览器访问： http://localhost:5000/doLogin?username=zhang&password=123456
     @RequestMapping("doLogin")
     public String doLogin(String username, String password) {
         // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对

@@ -29,6 +29,11 @@ public class AuthPermissionServiceImpl implements AuthPermissionService {
         return this.authPermissionDao.queryById(id);
     }
 
+    @Override
+    public AuthPermission queryByCondition(AuthPermission authPermission) {
+        return this.queryByCondition(authPermission);
+    }
+
     /**
      * 新增数据
      *

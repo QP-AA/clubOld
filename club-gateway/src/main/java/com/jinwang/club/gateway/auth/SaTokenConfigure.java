@@ -1,5 +1,6 @@
 package com.jinwang.club.gateway.auth;
 
+import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
@@ -21,8 +22,9 @@ public class SaTokenConfigure {
             .addInclude("/**")    /* 拦截全部path */
             // 鉴权方法：每次访问进入 
             .setAuth(obj -> {
+                System.out.println("-------- 前端访问path：" + SaHolder.getRequest().getRequestPath());
                 // 登录校验 -- 拦截所有路由，并排除/user/doLogin 用于开放登录 
-                SaRouter.match("/**", "/user/doLogin", r -> StpUtil.checkLogin());
+//                SaRouter.match("/**", "/user/doLogin", r -> StpUtil.checkLogin());
                 
                 // 权限认证 -- 不同模块, 校验不同权限 
                 SaRouter.match("/user/**", r -> StpUtil.checkPermission("user"));

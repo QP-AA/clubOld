@@ -1,4 +1,4 @@
-package com.jinwang.club.gateway.Utils;
+package com.jinwang.utils;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

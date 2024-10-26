@@ -1,22 +1,22 @@
 package com.jinwang.auth.domain.service.impl;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
+import com.google.gson.Gson;
 import com.jinwang.auth.domain.constants.AuthConstant;
 import com.jinwang.auth.domain.convert.AuthUserBOConverter;
 import com.jinwang.auth.domain.entity.AuthUserBO;
 import com.jinwang.auth.domain.service.AuthUserDomainService;
-import com.jinwang.auth.infra.basic.entity.AuthRole;
-import com.jinwang.auth.infra.basic.entity.AuthUser;
-import com.jinwang.auth.infra.basic.entity.AuthUserRole;
-import com.jinwang.auth.infra.basic.service.AuthRoleService;
-import com.jinwang.auth.infra.basic.service.AuthUserRoleService;
-import com.jinwang.auth.infra.basic.service.AuthUserService;
+import com.jinwang.auth.infra.basic.entity.*;
+import com.jinwang.auth.infra.basic.service.*;
+import com.jinwang.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -30,6 +30,19 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
 
     @Resource
     AuthUserRoleService authUserRoleService;
+
+    @Resource
+    AuthRolePermissionService authRolePermissionService;
+
+    @Resource
+    AuthPermissionService authPermissionService;
+
+    @Resource
+    RedisUtil redisUtil;
+
+    private static final String authRolePrefix = "auth.role";
+
+    private static final String authPermissionPrefix = "auth.permission";
 
     @Override
     public Boolean register(AuthUserBO authUserBO) {
@@ -55,6 +68,22 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         authUserRole.setRoleId(roleId);
         log.info("开始建立用户角色关联");
         authUserRoleService.insert(authUserRole);
+
+        // 用户-角色对应
+        String roleKey = redisUtil.buildKey(authRolePrefix, authUser.getUserName());
+        List<AuthRole> roleList = new ArrayList<>();
+        roleList.add(authRole);
+        redisUtil.set(roleKey, new Gson().toJson(roleList));
+
+        // 角色-权限对应
+        AuthRolePermission authRolePermission = new AuthRolePermission();
+        authRolePermission.setRoleId(Math.toIntExact(roleId));
+        List<AuthRolePermission> rolePermissionList = authRolePermissionService.queryByCondition(authRolePermission);
+        List<Integer> permissionIdList = rolePermissionList.stream().map(AuthRolePermission::getPermissionId).collect(Collectors.toList());
+        List<AuthPermission> authPermissionList = permissionIdList.stream().map(id -> authPermissionService.queryById(id)).collect(Collectors.toList());
+        String permissionKey = redisUtil.buildKey(authPermissionPrefix, authUser.getUserName());
+        redisUtil.set(permissionKey, new Gson().toJson(authPermissionList));
+
 
         return cnt > 0;
     }

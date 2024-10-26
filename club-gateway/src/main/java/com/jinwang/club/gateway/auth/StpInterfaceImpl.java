@@ -10,9 +10,9 @@ package com.jinwang.club.gateway.auth;
 import cn.dev33.satoken.stp.StpInterface;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import com.jinwang.club.gateway.Utils.RedisUtil;
 import com.jinwang.club.gateway.entity.AuthPermission;
 import com.jinwang.club.gateway.entity.AuthRole;
+import com.jinwang.utils.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

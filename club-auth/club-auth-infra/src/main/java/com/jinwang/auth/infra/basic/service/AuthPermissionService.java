@@ -19,6 +19,13 @@ public interface AuthPermissionService {
     AuthPermission queryById(Integer id);
 
     /**
+     * 根据条件查询数据
+     * @param authPermission
+     * @return
+     */
+    AuthPermission queryByCondition(AuthPermission authPermission);
+
+    /**
      * 新增数据
      *
      * @param authPermission 实例对象
@@ -41,5 +48,4 @@ public interface AuthPermissionService {
      * @return 是否成功
      */
     boolean deleteById(Long id);
-
 }
