@@ -12,6 +12,7 @@
         <module name="club-subject-application" />
         <module name="club-auth-application" />
         <module name="club-auth-domain" />
+        <module name="club-weixin" />
         <module name="club-subject-domain" />
         <module name="club-gateway" />
         <module name="club-auth-infra" />
