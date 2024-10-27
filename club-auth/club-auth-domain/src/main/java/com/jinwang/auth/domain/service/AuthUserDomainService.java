@@ -28,5 +28,12 @@ public interface AuthUserDomainService {
      * 删除
      */
     Boolean delete(AuthUserBO authUserBO);
+
+    /**
+     * 登录
+     * @param validCode
+     * @return
+     */
+    SaTokenInfo doLogin(String validCode);
 }
 
