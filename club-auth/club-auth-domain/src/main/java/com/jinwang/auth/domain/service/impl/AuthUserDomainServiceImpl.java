@@ -113,7 +113,7 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         String loginKey = redisUtil.buildKey(LOGIN_PREFIX, validCode);
         String openId = redisUtil.get(loginKey);
         if (StringUtils.isBlank(openId)) {
-            return null;
+            throw new RuntimeException("验证码错误");
         }
         AuthUserBO authUserBO = new AuthUserBO();
         authUserBO.setUserName(openId);
