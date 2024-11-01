@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: club-auth-dev
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 47.109.29.180:8848
+        prefix: ${spring.application.name}
+        group: DEFAULT_GROUP
+        file-extension: yaml
+        long-poll-timeout: 30000
+      discovery:
+        enabled: true
+        server-addr: 47.109.29.180
