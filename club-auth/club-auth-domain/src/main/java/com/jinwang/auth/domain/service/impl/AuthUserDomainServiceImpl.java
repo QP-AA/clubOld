@@ -51,10 +51,19 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
 
     @Override
     public Boolean register(AuthUserBO authUserBO) {
+
+        // 判空
+        if (StringUtils.isEmpty(authUserBO.getUserName())) {
+            log.info("用户名为空");
+            return false;
+        }
+
         AuthUser exitAuthUser = new AuthUser();
         exitAuthUser.setUserName(authUserBO.getUserName());
         List<AuthUser> existUsers = authUserService.queryByCondition(exitAuthUser);
+
         if (!CollectionUtils.isEmpty(existUsers)) {
+            log.info("用户已存在");
             return true;
         }
         AuthUser authUser = AuthUserBOConverter.INSTANCE.convertBOToEntity(authUserBO);

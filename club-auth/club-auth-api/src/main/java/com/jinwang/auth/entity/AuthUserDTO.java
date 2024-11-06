@@ -1,6 +1,7 @@
 package com.jinwang.auth.entity;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import java.io.Serializable;
 
